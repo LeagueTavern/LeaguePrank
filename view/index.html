@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.min.css" />
+    <link rel="stylesheet" href="css/uikit.min.css" />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/LCUconnect.js"></script>
+    <script src="js/uikit.min.js"></script>
+    <script src="js/uikit-icons.min.js"></script>
+    <script src="js/uikit-icons.min.js"></script>
+    <script src="js/sitebasic.js"></script>
+    
+
+    <title>LeaguePrank</title>
+</head>
+
+<body leftmargin=0 topmargin=0 οncοntextmenu='return false' οndragstart='return false' onselectstart ='return false' οnselect='document.selection.empty()' οncοpy='document.selection.empty()' onbeforecopy='return false' οnmοuseup='document.selection.empty()' oncontextmenu=self.event.returnValue=false onselectstart="return false">
+    <div id="welcome-page-info" class="welcome-page">
+        <div class="page-center">
+            <div class="logo-info">
+                <div class="welcome-logo"></div><span class="welcome-title">LeaguePrank</span>
+            </div>
+            <br />
+            <div id="load-welc-spinner" class="load-spinner" uk-spinner></div>
+            <div id="load-welc-error" class="uk-alert-warning uk-alert-container" style="display: none;" uk-alert>
+                <p>未能识别到客户端，请启动客户端后再打开本程序。</p>
+            </div>
+        </div>
+    </div>
+    <!--<div id="head-selector" class="head-selector">
+        <div class="head-selector-container">
+            <p>选择一个头像</p>
+            <ul id="head-selector-list" class="head-list page-bar">
+                <li><img class="head-list-view" src="C:\Users\11645\Desktop\DESKTOP\4661.jpg"></li>
+            </ul>
+            <button id="head-selector-cancel" class="uk-button uk-button-default uk-button-left">取消选择</button>
+            <button id="head-selector-continue" class="uk-button uk-button-primary uk-button-right">确定选择</button>
+        </div>
+    </div>-->
+    <div id="clash-selector" class="clash-selector" style="display: none;">
+        <div class="clash-selector-container">
+            <ul uk-tab class="tab-title">
+                <li><a>使用召唤师名称添加</a></li>
+                <li><a>使用SummonerId添加</a></li>
+            </ul>
+            <ul class="uk-switcher uk-margin">
+                <li>
+                    <p class="uk-Tips">请输入召唤师名称</p>
+                    <div class="uk-margin">
+                        <input id="clash-selector-summonerName" class="uk-input" placeholder="名称">
+                    </div>
+                    <button id="clash-selector-summonerName-continue" class="uk-button uk-button-primary">确定添加</button>
+                    <button id="clash-selector-cancel" class="uk-button uk-button-default">取消</button>
+                </li>
+                <li>
+                    <p class="uk-Tips">请输入SummonerId</p>
+                    <div class="uk-margin">
+                        <input id="clash-selector-summonerId" class="uk-input" placeholder="SummonerId">
+                    </div>
+                    <button id="clash-selector-summonerId-continue" class="uk-button uk-button-primary">确定添加</button>
+                    <button id="clash-selector-cancel" class="uk-button uk-button-default">取消</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="top-bar">
+        <div class="top-bar-user">
+            <img id="user-head-container" drop="false" class="user-head"><span id="user-name-container" class="user-name"></span>
+        </div>
+        <div class="top-bar-center">
+            
+        </div>
+        <div class="top-bar-share">
+            <div class="github-info">
+                <div class="github-icon">
+                    <span uk-icon="icon: github; ratio: 0.95;"></span>
+                </div>
+                <span class="github-star">0 STARS</span>
+            </div>
+        </div>
+    </div>
+    <div class="bd-side">
+        <div class="side-list">
+            <h3 class="side-title">LeaguePrank</h3>
+            <ul id="side-Navbar" class="uk-nav uk-nav-default tm-nav">
+                <li class="uk-nav-header">功能列表</li>
+                <li usage="tag-online" class="uk-nav-tag active"><a>状态</a></li>
+                <li usage="tag-head" class="uk-nav-tag"><a>头像显示</a></li>
+                <!--<li usage="tag-title" class="uk-nav-tag"><a>动态标题</a></li>-->
+                <li usage="tag-clash" class="uk-nav-tag"><a>房间伪造</a></li>
+                <li usage="tag-tier" class="uk-nav-tag"><a>段位显示</a></li>
+                <li usage="tag-background" class="uk-nav-tag"><a>生涯背景</a></li>
+                <!--<li usage="tag-mode" class="uk-nav-tag"><a>模式选择器</a></li>-->
+                <li usage="tag-about" class="uk-nav-tag"><a>关于</a></li>
+            </ul>
+        </div>
+        <div id="container-body" class="side-body page-bar">
+            <div class="uk-container uk-container-small uk-position-relative">
+                <div class="uk-alert-primary uk-alert-container" uk-alert>
+                    <a class="uk-alert-close" uk-close></a>
+                    <p>本工具为开源、免费工具，且所有功能均为合法调用RIOT公布的LCUAPI，不修改游戏文件，不读写客户端内存，完全遵守英雄联盟的 用户使用协议。本工具为开源工具，如果您是通过购买所得，那就是被骗了。</p>
+                </div>
+                <div class="uk-alert-warning uk-alert-container" uk-alert>
+                    <a class="uk-alert-close" uk-close></a>
+                    <p>您当前处于预览版模式。(1.0.0 Preview)</p>
+                </div>
+                <div id="usage-info" usage="tag-online" class="container-usage">
+                    <div class="usage-title">
+                        <div id="container-top"></div>
+                        <h2 id="usage" class="uk-h3 tm-heading-fragment">
+                            <a>修改额外的在线状态</a>
+                        </h2>
+                        <p class="uk-Tips">能够额外选中客户端无法选择的在线状态，伪造当前用户不在线，离开的效果，且好友可见。该功能可能与伪造房间存在冲突。</p>
+                    </div>
+                    <select id="tag-online-select" class="uk-select uk-form-width-small">
+                        <option value="chat">在线</option>
+                        <option value="away">离开</option>
+                        <option value="dnd">游戏中</option>
+                        <option value="offline">离线</option>
+                        <option value="mobile">手机在线</option>
+                    </select>
+                    <p class="uk-Tips">Tips:&nbsp;[游戏中]状态可能不会生效！</p>
+                </div>
+                <hr class="uk-margin-large">
+                <div id="usage-info" usage="tag-head" class="container-usage">
+                    <div class="usage-title">
+                        <div id="container-top"></div>
+                        <h2 id="usage" class="uk-h3 tm-heading-fragment">
+                            <a>修改当前客户端显示的头像</a>
+                        </h2>
+                        <p class="uk-Tips">修改当前客户端内显示的头像，仅自己可见。</p>
+                    </div>
+                    <button id="head-selector-up" class="uk-button uk-button-default" value="-1">上一个</button>
+                    <input id="head-selector-count" class="uk-input uk-form-width-small" value="">
+                    <button id="head-selector-down" class="uk-button uk-button-default" value="1">下一个</button>
+                    <img id="head-review-image" class="head-review">
+                    <p class="uk-Tips">拖动图片到桌面可保存成图片文件</p>
+                </div>
+                <hr class="uk-margin-large">
+                <!--<div id="usage-info" usage="tag-title" class="container-usage">
+                    <div class="usage-title">
+                        <div id="container-top"></div>
+                        <h2 id="usage" class="uk-h3 tm-heading-fragment">
+                            <a>动态标语循环</a>
+                        </h2>
+                        <p class="uk-Tips">循环显示标语，支持第三方文字API，速度5000ms最佳。</p>
+                        <label class="input-checkbox-label container-checkbox">
+                            <input type="checkbox">
+                            <span class="input-checkbox-span"></span>
+                        </label>
+                    </div>
+                    <div class="uk-overflow-auto">
+                        <button class="uk-button uk-button-primary">添加标语</button>
+                        <button class="uk-button uk-button-danger">删除选中标语</button>
+                        <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
+                            <thead>
+                                <tr>
+                                    <th class="uk-table-shrink"><input class="uk-checkbox" type="checkbox"></th>
+                                    <th class="uk-table-expand">标题</th>
+                                    <th class="uk-table-shrink"></th>
+                                    <th class="uk-table-shrink"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input class="uk-checkbox" type="checkbox"></td>
+                                    <td class="uk-text-truncate">标题1</td>
+                                    <td class="uk-table-icon"><span uk-icon="icon: pencil"></span></td>
+                                    <td class="uk-table-icon"><span uk-icon="icon: trash"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><input class="uk-checkbox" type="checkbox"></td>
+                                    <td class="uk-text-truncate">标题2</td>
+                                    <td class="uk-table-icon"><span uk-icon="icon: pencil"></span></td>
+                                    <td class="uk-table-icon"><span uk-icon="icon: trash"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><input class="uk-checkbox" type="checkbox"></td>
+                                    <td class="uk-text-truncate">标题3</td>
+                                    <td class="uk-table-icon"><span uk-icon="icon: pencil"></span></td>
+                                    <td class="uk-table-icon"><span uk-icon="icon: trash"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><input class="uk-checkbox" type="checkbox"></td>
+                                    <td class="uk-text-truncate">标题4</td>
+                                    <td class="uk-table-icon"><span uk-icon="icon: pencil"></span></td>
+                                    <td class="uk-table-icon"><span uk-icon="icon: trash"></span></td>
+                                </tr>
+                                <tr>
+                                    <td><input class="uk-checkbox" type="checkbox"></td>
+                                    <td class="uk-text-truncate">标题5</td>
+                                    <td class="uk-table-icon"><span uk-icon="icon: pencil"></span></td>
+                                    <td class="uk-table-icon"><span uk-icon="icon: trash"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="uk-Tips">延迟时间：(单位为毫秒/ms)</p>
+                        <div class="uk-inline">
+                            <span class="uk-form-icon" uk-icon="icon: clock"></span>
+                            <input class="uk-input uk-form-width-small" value="5000">
+                        </div>
+                        <button class="uk-button uk-button-primary">生效</button>
+                        
+                    </div>
+                </div>
+                <hr class="uk-margin-large">-->
+                <div id="usage-info" usage="tag-clash" class="container-usage">
+                    <div class="usage-title">
+                        <div id="container-top"></div>
+                        <h2 id="usage" class="uk-h3 tm-heading-fragment">
+                            <a>伪造房间状态</a>
+                        </h2>
+                        <p class="uk-Tips">当您处在一个房间/组队时，好友列表上的您会显示为当前处在(某某房间 1/5)，本功能允许您给当前房间伪造任意一个模式，任意一个人数，显示谁在房间内。您的好友将鼠标移动到好友列表，移动到您的头像上时，既可以显示您修改过的结果。</p>
+                        <label class="input-checkbox-label container-checkbox">
+                            <input type="checkbox" id="tag-clash-enable">
+                            <span class="input-checkbox-span"></span>
+                        </label>
+                    </div>
+
+                    <div id="tag-clash-container" class="uk-overflow-auto" style="display: none;">
+                        <button id="tag-clash-container-add" class="uk-button uk-button-primary">添加玩家</button>
+                        <button id="tag-clash-container-review" class="uk-button uk-button-default">刷新显示</button>
+                        <!--<button class="uk-button uk-button-danger">删除选中玩家</button>-->
+                        <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
+                            <thead>
+                                <tr>
+                                    <!--<th class="uk-table-shrink"><input class="uk-checkbox" type="checkbox"></th>-->
+                                    <th class="uk-table-expand">玩家名</th>
+                                    <th class="uk-table-expand">SummonerId</th>
+                                    <th class="uk-table-shrink"></th>
+                                    <!--<th class="uk-table-shrink"></th>-->
+                                </tr>
+                            </thead>
+                            <tbody id="tag-clash-summoners">
+                                <!--<tr>
+                                    <td><input class="uk-checkbox" type="checkbox"></td>
+                                    <td class="uk-text-truncate">标题1</td>
+                                    <td class="uk-text-truncate">标题5</td>
+                                    <td class="uk-table-icon"><span uk-icon="icon: pencil"></span></td>
+                                    <td class="uk-table-icon"><span uk-icon="icon: trash"></span></td>
+                                </tr>-->
+
+                            </tbody>
+                        </table>
+                        <p class="uk-Tips">游戏模式</p>
+                        <select id="tag-clash-queue-select" class="uk-select uk-form-width-medium">
+                            <!--
+                            <option>匹配 自选 (召唤师峡谷)</option>
+                            <option>单排/双排 (召唤师峡谷)</option>
+                            <option>灵活排位 (召唤师峡谷)</option>
+                            <option>极地大乱斗 (嚎哭深渊)</option>
+                            <option>轮换游戏模式</option>
+                            <option>入门人机 (召唤师峡谷)</option>
+                            <option>新手人机 (召唤师峡谷)</option>
+                            <option>一般人机 (召唤师峡谷)</option>
+                            -->
+                        </select>
+                    </div>
+                </div>
+                <hr class="uk-margin-large">
+                <div id="usage-info" usage="tag-tier" class="container-usage">
+                    <div class="usage-title">
+                        <div id="container-top"></div>
+                        <h2 id="usage" class="uk-h3 tm-heading-fragment">
+                            <a>修改段位显示</a>
+                        </h2>
+                        <p class="uk-Tips">当好友移到好友列表上，移动到你的头像上时，将会显示您设置的段位。（如果头像框为段位边框，将可以显示您设置的边框，但是自己看不见，别人可以看见）</p>
+                    </div>
+                    <select id="tag-tier-select-tier" class="uk-select uk-form-width-medium">
+                        <option value="IRON">坚韧黑铁</option>
+                        <option value="BRONZE">英勇黄铜</option>
+                        <option value="SILVER">不屈白银</option>
+                        <option value="GOLD">荣耀黄金</option>
+                        <option value="PLATINUM">华贵铂金</option>
+                        <option value="DIAMOND">璀璨钻石</option>
+                        <option value="MASTER">超凡大师</option>
+                        <option value="GRANDMASTER">傲世宗师</option>
+                        <option value="CHALLENGER">最强王者</option>
+                        <option value="UNRANKED">没有段位</option>
+                    </select>
+                    <select id="tag-tier-select-type" class="uk-select uk-form-width-medium">
+                        <option value="RANKED_SOLO_5x5">单排/双排</option>
+                        <option value="RANKED_FLEX_SR">灵活组排 5v5</option>
+                        <option value="RANKED_FLEX_TT">灵活组排 3v3</option>
+                        <option value="RANKED_TFT">云顶之弈</option>
+                    </select>
+                    <select id="tag-tier-select-level" class="uk-select uk-form-width-small">
+                        <option value="IV">IV</option>
+                        <option value="III">III</option>
+                        <option value="II">II</option>
+                        <option value="I">I</option>
+                    </select>
+                </div>
+                <hr class="uk-margin-large">
+                <div id="usage-info" usage="tag-background" class="container-usage">
+                    <div class="usage-title">
+                        <div id="container-top"></div>
+                        <h2 id="usage" class="uk-h3 tm-heading-fragment">
+                            <a>生涯背景修改</a>
+                        </h2>
+                        <p class="uk-Tips">允许您无视是否拥有此英雄或者皮肤，进行生涯背景的修改。他人可见，且永久有效。</p>
+                    </div>
+                    <select id="tag-background-select-hero" class="uk-select uk-form-width-medium">
+                        <!--<option>英雄名称</option>-->
+                    </select>
+                    <select id="tag-background-select-skin" class="uk-select uk-form-width-medium">
+                        <!--<option>皮肤名称</option>-->
+                    </select>
+                </div>
+                <hr class="uk-margin-large">
+                <!--<div id="usage-info" usage="tag-mode" class="container-usage">
+                    <div class="usage-title">
+                        <div id="container-top"></div>
+                        <h2 id="usage" class="uk-h3 tm-heading-fragment">
+                            <a>模式选择器修改</a>
+                        </h2>
+                        <p class="uk-Tips">修改模式选择的图标，标题，背景，模式名称，仅对自己生效。</p>
+                        <label class="input-checkbox-label container-checkbox">
+                            <input type="checkbox">
+                            <span class="input-checkbox-span"></span>
+                        </label>
+                    </div>
+
+                    <div class="uk-overflow-auto">
+                        <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
+                            <thead>
+                                <tr>
+                                    <th class="uk-table-expand">模式名</th>
+                                    <th class="uk-table-expand">模式ID</th>
+                                    <th class="uk-table-shrink"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="uk-text-truncate">标题1</td>
+                                    <td class="uk-text-truncate">标题5</td>
+                                    <td class="uk-table-icon"><span uk-icon="icon: pencil"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="uk-text-truncate">标题2</td>
+                                    <td class="uk-text-truncate">标题5</td>
+                                    <td class="uk-table-icon"><span uk-icon="icon: pencil"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="uk-text-truncate">标题3</td>
+                                    <td class="uk-text-truncate">标题5</td>
+                                    <td class="uk-table-icon"><span uk-icon="icon: pencil"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="uk-text-truncate">标题4</td>
+                                    <td class="uk-text-truncate">标题5</td>
+                                    <td class="uk-table-icon"><span uk-icon="icon: pencil"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="uk-text-truncate">标题5</td>
+                                    <td class="uk-text-truncate">标题5</td>
+                                    <td class="uk-table-icon"><span uk-icon="icon: pencil"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <hr class="uk-margin-large">-->
+                <div id="usage-info" usage="tag-about" class="container-usage">
+                    <div class="usage-title">
+                        <div id="contausage-infoiner-top"></div>
+                        <h2 id="usage" class="uk-h3 tm-heading-fragment">
+                            <a>关于本工具</a>
+                        </h2>
+                        <p class="uk-Tips">LeaguePrank 1.0.0 Preview</p>
+                    </div>
+                    <p class="about-pTitle">开发人员</p>
+                    <div class="about-dev-members" onclick="openBilibiliSpace('14671179')">
+                        <img drop="false" class="members-head" src="img/Mario.jpg_64x64.jpg">
+                        <p class="members-name">Mario</p>
+                        <p class="members-info">Qt、CEF框架搭建</p>
+                    </div>
+                    <div class="about-dev-members" onclick="openBilibiliSpace('248303677')">
+                        <img drop="false" class="members-head" src="img/BC.jpg_64x64.jpg">
+                        <p class="members-name">ButterCookies</p>
+                        <p class="members-info">H5排版，JS对接LCU，交互设计</p>
+                    </div>
+                    <p class="about-pTitle">引用</p>
+                    <p class="about-pText">UIKIT(getuikit.com)</p> 
+                    <button class="uk-button uk-button-default" onclick="LCUopenUrl('https://github.com/uikit/uikit/blob/develop/LICENSE.md')">LICENSE.md</button>
+                    <p class="about-pText">Chromiumembedded/CEF</p> 
+                    <button class="uk-button uk-button-default" onclick="LCUopenUrl('https://github.com/chromiumembedded/cef/blob/master/LICENSE.txt')">LICENSE.md</button>
+                    <p class="about-pText">tishion/QCefView</p> 
+                    <button class="uk-button uk-button-default" onclick="LCUopenUrl('https://github.com/tishion/QCefView/blob/master/License')">LICENSE.md</button>
+                    <p class="about-pText">QT(5.15.0)</p> 
+                    <button class="uk-button uk-button-default" onclick="LCUopenUrl('https://www.qt.io/terms-conditions/')">LICENSE.md</button>
+                    <p class="about-pTitle">免责声明</p>
+                   <p class="about-pText">凡本软件提供的所有资源的版权，均归其版权所有人所有。用户若因本软件导致的任何法律争议及后果，均由用户自己负责，本软件不负任何责任。使用此软件即代表用户已知晓以上内容。</p>  
+                   <p class="about-pText">本工具为开源、免费工具，且所有功能均为合法调用RIOT公布的LCUAPI，不修改游戏文件，不读写客户端内存，完全遵守英雄联盟的 用户使用协议。</p> 
+                </div>
+                <hr class="uk-margin-large">
+            <div>
+        </div>
+    </div>
+</body>
+</html>
