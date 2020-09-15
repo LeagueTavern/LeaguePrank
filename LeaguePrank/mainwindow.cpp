@@ -98,22 +98,23 @@ void MainWindow::onInvokeMethod(QString method, QString argument)
 void MainWindow::sendGamePathList()
 {
     /* 遍历进程获取游戏路径 */
-#if 0
-    QStringList pathList = GetProcessFullPaths("LeagueClient.exe");
-#else
     QStringList pathList;
-    QProcess process;
-    process.start("wmic process where name='LeagueClient.exe' GET ExecutablePath");
-    process.waitForFinished(-1);
-    QString result = QString::fromLocal8Bit(process.readAllStandardOutput());
-    if (result.left(CMD_EXECUTABLE_PATH.length()) == CMD_EXECUTABLE_PATH) {
-        pathList = result.split("\n");
-        /* 去除第一行和后两行空白 */
-        pathList.removeFirst();
-        pathList.removeLast();
-        pathList.removeLast();
+
+    pathList = GetProcessFullPaths("LeagueClient.exe");
+    if (pathList.isEmpty()) {
+        QProcess process;
+        process.start("wmic process where name='LeagueClient.exe' GET ExecutablePath");
+        process.waitForFinished(-1);
+        QString result = QString::fromLocal8Bit(process.readAllStandardOutput());
+        if (result.left(CMD_EXECUTABLE_PATH.length()) == CMD_EXECUTABLE_PATH) {
+            pathList = result.split("\n");
+            /* 去除第一行和后两行空白 */
+            pathList.removeFirst();
+            pathList.removeLast();
+            pathList.removeLast();
+        }
     }
-#endif
+
 #if 0  // 会在H5中进行弹窗显示
     if (pathList.isEmpty()) {
         QMessageBox::warning(nullptr, "Error!", QString::fromLocal8Bit("请先运行游戏再开启此软件!"));
